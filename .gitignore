@@ -1,3 +1,9 @@
+.vscode
+.gitignore
+.DS_Store
+*/.DS_Store
+README 2.md
+
 # Logs
 logs
 *.log
