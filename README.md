@@ -4,7 +4,7 @@ Demo (https://damp-mountain-35185.herokuapp.com/)
 
 ## Project Description
 
-This application helps consumers to reach their fitness goals more quickly when they track their workout progress.
+This application is designed to help consumers reach their fitness goals more quickly when they track their workout progress.
 
 ![Screenshot](/public/screenshot.png)
 
