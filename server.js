@@ -32,6 +32,21 @@ app.get("/exercise", (req, res) => {
 
 })
 
+app.get("/api/workouts/range", (req, res) => {
+    Workout.aggregate([
+        {
+            $addFields: {
+                totalDuration: {
+                    $sum: "$exercises.duration"
+                }
+            }
+        }
+    ]).limit(7)
+        .then(function (workouts) {
+            res.json(workouts)
+        })
+});
+
 app.get("/api/workouts", (req, res) => {
     Workout.aggregate([
         {
