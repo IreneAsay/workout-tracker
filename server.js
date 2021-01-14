@@ -19,32 +19,31 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
-    useCreateIndex: true
+    useCreateIndex: true,
 });
 
 app.get("/stats", (req, res) => {
-    res.sendFile(path.join(__dirname, "./public/stats.html"))
-
-})
+    res.sendFile(path.join(__dirname, "./public/stats.html"));
+});
 
 app.get("/exercise", (req, res) => {
-    res.sendFile(path.join(__dirname, "./public/exercise.html"))
-
-})
+    res.sendFile(path.join(__dirname, "./public/exercise.html"));
+});
 
 app.get("/api/workouts/range", (req, res) => {
     Workout.aggregate([
         {
             $addFields: {
                 totalDuration: {
-                    $sum: "$exercises.duration"
-                }
-            }
-        }
-    ]).limit(7)
+                    $sum: "$exercises.duration",
+                },
+            },
+        },
+    ])
+        .limit(7)
         .then(function (workouts) {
-            res.json(workouts)
-        })
+            res.json(workouts);
+        });
 });
 
 app.get("/api/workouts", (req, res) => {
@@ -52,14 +51,13 @@ app.get("/api/workouts", (req, res) => {
         {
             $addFields: {
                 totalDuration: {
-                    $sum: "$exercises.duration"
-                }
-            }
-        }
-    ])
-        .then(function (workouts) {
-            res.json(workouts)
-        })
+                    $sum: "$exercises.duration",
+                },
+            },
+        },
+    ]).then(function (workouts) {
+        res.json(workouts);
+    });
 });
 
 app.put("/api/workouts/:id", (req, res) => {
@@ -67,21 +65,16 @@ app.put("/api/workouts/:id", (req, res) => {
         req.params.id,
         { $push: { exercises: req.body } },
         { new: true, runValidators: true }
-    )
-        .then(function (workouts) {
-            res.json(workouts)
-        })
+    ).then(function (workouts) {
+        res.json(workouts);
+    });
 });
-
 
 app.post("/api/workouts", (req, res) => {
-    Workout.create({})
-        .then(function (workouts) {
-            res.json(workouts)
-        })
+    Workout.create({}).then(function (workouts) {
+        res.json(workouts);
+    });
 });
-
-
 
 app.listen(PORT, () => {
     console.log(`App running on port ${PORT}!`);
